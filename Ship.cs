@@ -77,7 +77,7 @@ namespace WindowsFormsCars
         /// <param name="g"></param>
         public override void DrawShip(Graphics g)
         {
-            Pen pen = new Pen(Color.Black);
+            Pen pen = new Pen(MainColor);
 
             // теперь отрисуем основную часть корабля
             g.DrawLine(pen, _startPosX + 10, _startPosY, _startPosX + 80, _startPosY);

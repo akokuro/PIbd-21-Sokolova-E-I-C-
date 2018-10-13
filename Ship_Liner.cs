@@ -104,13 +104,13 @@ namespace WindowsFormsCars
             // отрисуем сперва трубу
             if (Pipe)
             {
-                Brush pipe = new SolidBrush(Color.RoyalBlue);
+                Brush pipe = new SolidBrush(MainColor);
                 g.FillRectangle(pipe, _startPosX + 60, _startPosY - 50, 10, 15);
             }
             // и дым
             if (SmokeFromPipe)
             {
-                Brush smoke = new SolidBrush(DopColor);
+                Brush smoke = new SolidBrush(Color.Gray);
                 g.FillEllipse(smoke, _startPosX + 57, _startPosY - 47, 2, 2);
                 g.FillEllipse(smoke, _startPosX + 52, _startPosY - 44, 3, 3);
                 g.FillEllipse(smoke, _startPosX + 43, _startPosY - 42, 5, 5);
@@ -123,10 +123,10 @@ namespace WindowsFormsCars
             g.DrawLine(new Pen(Color.Red), _startPosX + 5, _startPosY - 13, _startPosX + 85, _startPosY - 13);
             g.DrawRectangle(pen, _startPosX + 10, _startPosY - 35, 70, 10);
 
-            // рисуем задний спойлер автомобиля
+            // рисуем окна лайнера
             if (Window)
             {
-                Brush spoiler = new SolidBrush(Color.Blue);
+                Brush spoiler = new SolidBrush(DopColor);
                 g.FillEllipse(spoiler, _startPosX + 45, _startPosY - 23, 7, 7);
                 g.FillEllipse(spoiler, _startPosX + 35, _startPosY - 23, 7, 7);
                 g.FillEllipse(spoiler, _startPosX + 55, _startPosY - 23, 7, 7);
