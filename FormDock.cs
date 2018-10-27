@@ -13,26 +13,42 @@ namespace WindowsFormsCars
     public partial class FormDock : Form
     {
         /// <summary>
-        /// Объект от класса-дока
+        /// Объект от класса многоуровнего дока
         /// </summary>
-        Dock<IShip> dock;
+        MultiLevelDock dock;
+
+        /// <summary>
+        /// Количество уровней-парковок
+        /// </summary>
+        private const int countLevel = 5;
 
         public FormDock()
         {
             InitializeComponent();
-            dock = new Dock<IShip>(15, pictureBoxDock.Width,
+            dock = new MultiLevelDock(countLevel, pictureBoxDock.Width,
 pictureBoxDock.Height);
-            Draw();
+            //заполнение listBox
+            for (int i = 0; i < countLevel; i++)
+            {
+                listBoxLevels.Items.Add("Уровень " + (i + 1));
+            }
+            listBoxLevels.SelectedIndex = 0;
         }
+
+
         /// <summary>
         /// Метод отрисовки парковки
         /// </summary>
         private void Draw()
         {
-            Bitmap bmp = new Bitmap(pictureBoxDock.Width, pictureBoxDock.Height);
-            Graphics gr = Graphics.FromImage(bmp);
-            dock.Draw(gr);
-            pictureBoxDock.Image = bmp;
+            if (listBoxLevels.SelectedIndex > -1)
+            {//если выбран один из пуктов в listBox (при старте программы ни один не будет выбран и может возникнуть ошибка, если мы попытаемся обратиться к listBox)
+                Bitmap bmp = new Bitmap(pictureBoxDock.Width,
+               pictureBoxDock.Height);
+                Graphics gr = Graphics.FromImage(bmp);
+                dock[listBoxLevels.SelectedIndex].Draw(gr);
+                pictureBoxDock.Image = bmp;
+            }
         }
         /// <summary>
         /// Обработка нажатия кнопки "Швартовать корабль"
@@ -41,12 +57,20 @@ pictureBoxDock.Height);
         /// <param name="e"></param>
         private void buttonSetShip_Click(object sender, EventArgs e)
         {
-            ColorDialog dialog = new ColorDialog();
-            if (dialog.ShowDialog() == DialogResult.OK)
+            if (listBoxLevels.SelectedIndex > -1)
             {
-                var ship = new Ship(100, 1000, dialog.Color);
-                int place = dock + ship;
-                Draw();
+                ColorDialog dialog = new ColorDialog();
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    var ship = new Ship(100, 1000, dialog.Color);
+                    int place = dock[listBoxLevels.SelectedIndex] + ship;
+                    if (place == -1)
+                    {
+                        MessageBox.Show("Нет свободных мест", "Ошибка",
+                       MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    Draw();
+                }
             }
         }
         /// <summary>
@@ -56,16 +80,24 @@ pictureBoxDock.Height);
         /// <param name="e"></param>
         private void buttonSetLiner_Click(object sender, EventArgs e)
         {
-            ColorDialog dialog = new ColorDialog();
-            if (dialog.ShowDialog() == DialogResult.OK)
+            if (listBoxLevels.SelectedIndex > -1)
             {
-                ColorDialog dialogDop = new ColorDialog();
-                if (dialogDop.ShowDialog() == DialogResult.OK)
+                ColorDialog dialog = new ColorDialog();
+                if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    var liner = new Ship_Liner(100, 1000, dialog.Color, dialogDop.Color,
-                   true, true, true);
-                    int place = dock + liner;
-                    Draw();
+                    ColorDialog dialogDop = new ColorDialog();
+                    if (dialogDop.ShowDialog() == DialogResult.OK)
+                    {
+                        var car = new Ship_Liner(100, 1000, dialog.Color, dialogDop.Color,
+                       true, true, true);
+                        int place = dock[listBoxLevels.SelectedIndex] + car;
+                        if (place == -1)
+                        {
+                            MessageBox.Show("Нет свободных мест", "Ошибка",
+                           MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        Draw();
+                    }
                 }
             }
         }
@@ -76,27 +108,40 @@ pictureBoxDock.Height);
         /// <param name="e"></param>
         private void buttonTakeShip_Click(object sender, EventArgs e)
         {
-            if (maskedTextBox.Text != "")
+            if (listBoxLevels.SelectedIndex > -1)
             {
-                var ship = dock - Convert.ToInt32(maskedTextBox.Text);
-                if (ship != null)
+                if (maskedTextBox.Text != "")
                 {
-                    Bitmap bmp = new Bitmap(pictureBoxTakeShip.Width,
-                   pictureBoxTakeShip.Height);
-                    Graphics gr = Graphics.FromImage(bmp);
-                    ship.SetPosition(15, 60, pictureBoxTakeShip.Width,
-                   pictureBoxTakeShip.Height);
-                    ship.DrawShip(gr);
-                    pictureBoxTakeShip.Image = bmp;
+                    var ship = dock[listBoxLevels.SelectedIndex] -
+                   Convert.ToInt32(maskedTextBox.Text);
+                    if (ship != null)
+                    {
+                        Bitmap bmp = new Bitmap(pictureBoxTakeShip.Width,
+                       pictureBoxTakeShip.Height);
+                        Graphics gr = Graphics.FromImage(bmp);
+                        ship.SetPosition(15, 75, pictureBoxTakeShip.Width,
+                       pictureBoxTakeShip.Height);
+                        ship.DrawShip(gr);
+                        pictureBoxTakeShip.Image = bmp;
+                    }
+                    else
+                    {
+                        Bitmap bmp = new Bitmap(pictureBoxTakeShip.Width,
+                       pictureBoxTakeShip.Height);
+                        pictureBoxTakeShip.Image = bmp;
+                    }
+                    Draw();
                 }
-                else
-                {
-                    Bitmap bmp = new Bitmap(pictureBoxTakeShip.Width,
-                   pictureBoxTakeShip.Height);
-                    pictureBoxTakeShip.Image = bmp;
-                }
-                Draw();
             }
         }
+        /// <summary>
+        /// Метод обработки выбора элемента на listBoxLevels
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void listBoxLevels_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Draw();
+        }
     }
 }

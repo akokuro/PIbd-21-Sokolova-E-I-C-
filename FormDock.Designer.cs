@@ -36,6 +36,8 @@
             this.TakeShip = new System.Windows.Forms.Button();
             this.maskedTextBox = new System.Windows.Forms.MaskedTextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.listBoxLevels = new System.Windows.Forms.ListBox();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDock)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTakeShip)).BeginInit();
@@ -46,14 +48,14 @@
             this.pictureBoxDock.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.pictureBoxDock.Location = new System.Drawing.Point(-1, 0);
             this.pictureBoxDock.Name = "pictureBoxDock";
-            this.pictureBoxDock.Size = new System.Drawing.Size(660, 450);
+            this.pictureBoxDock.Size = new System.Drawing.Size(733, 450);
             this.pictureBoxDock.TabIndex = 0;
             this.pictureBoxDock.TabStop = false;
             // 
             // SetShip
             // 
             this.SetShip.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.SetShip.Location = new System.Drawing.Point(681, 6);
+            this.SetShip.Location = new System.Drawing.Point(755, 101);
             this.SetShip.Name = "SetShip";
             this.SetShip.Size = new System.Drawing.Size(103, 44);
             this.SetShip.TabIndex = 1;
@@ -64,7 +66,7 @@
             // SetLiner
             // 
             this.SetLiner.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.SetLiner.Location = new System.Drawing.Point(681, 56);
+            this.SetLiner.Location = new System.Drawing.Point(755, 151);
             this.SetLiner.Name = "SetLiner";
             this.SetLiner.Size = new System.Drawing.Size(103, 43);
             this.SetLiner.TabIndex = 2;
@@ -78,7 +80,7 @@
             this.groupBox1.Controls.Add(this.TakeShip);
             this.groupBox1.Controls.Add(this.maskedTextBox);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(671, 215);
+            this.groupBox1.Location = new System.Drawing.Point(738, 216);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(129, 234);
             this.groupBox1.TabIndex = 3;
@@ -119,11 +121,31 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Место";
             // 
+            // listBoxLevels
+            // 
+            this.listBoxLevels.FormattingEnabled = true;
+            this.listBoxLevels.Location = new System.Drawing.Point(748, 19);
+            this.listBoxLevels.Name = "listBoxLevels";
+            this.listBoxLevels.Size = new System.Drawing.Size(110, 82);
+            this.listBoxLevels.TabIndex = 4;
+            this.listBoxLevels.Click += new System.EventHandler(this.listBoxLevels_SelectedIndexChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(774, 3);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(48, 13);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "Уровни:";
+            // 
             // FormDock
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(870, 450);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.listBoxLevels);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.SetLiner);
             this.Controls.Add(this.SetShip);
@@ -135,6 +157,7 @@
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTakeShip)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -148,5 +171,7 @@
         private System.Windows.Forms.Button TakeShip;
         private System.Windows.Forms.MaskedTextBox maskedTextBox;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ListBox listBoxLevels;
+        private System.Windows.Forms.Label label2;
     }
 }
