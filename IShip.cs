@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace WindowsFormsCars
 {
-    interface IShip
+    public interface IShip
     {
         /// <summary>
         /// Установка позиции корабля 
@@ -27,5 +27,10 @@ namespace WindowsFormsCars
         /// </summary>
         /// <param name="g"></param>
         void DrawShip(Graphics g);
+        /// <summary>
+        /// Смена основного цвета корабля
+        /// </summary>
+        /// <param name="color"></param>
+        void SetMainColor(Color color);
     }
 }

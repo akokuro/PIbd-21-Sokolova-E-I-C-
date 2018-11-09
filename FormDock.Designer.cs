@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.pictureBoxDock = new System.Windows.Forms.PictureBox();
-            this.SetShip = new System.Windows.Forms.Button();
             this.SetLiner = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.pictureBoxTakeShip = new System.Windows.Forms.PictureBox();
@@ -52,27 +51,16 @@
             this.pictureBoxDock.TabIndex = 0;
             this.pictureBoxDock.TabStop = false;
             // 
-            // SetShip
-            // 
-            this.SetShip.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.SetShip.Location = new System.Drawing.Point(755, 101);
-            this.SetShip.Name = "SetShip";
-            this.SetShip.Size = new System.Drawing.Size(103, 44);
-            this.SetShip.TabIndex = 1;
-            this.SetShip.Text = "Швартовать корабль";
-            this.SetShip.UseVisualStyleBackColor = false;
-            this.SetShip.Click += new System.EventHandler(this.buttonSetShip_Click);
-            // 
             // SetLiner
             // 
             this.SetLiner.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.SetLiner.Location = new System.Drawing.Point(755, 151);
+            this.SetLiner.Location = new System.Drawing.Point(741, 129);
             this.SetLiner.Name = "SetLiner";
-            this.SetLiner.Size = new System.Drawing.Size(103, 43);
+            this.SetLiner.Size = new System.Drawing.Size(117, 43);
             this.SetLiner.TabIndex = 2;
-            this.SetLiner.Text = "Швартовать лайнер";
+            this.SetLiner.Text = "Заказать корабль";
             this.SetLiner.UseVisualStyleBackColor = false;
-            this.SetLiner.Click += new System.EventHandler(this.buttonSetLiner_Click);
+            this.SetLiner.Click += new System.EventHandler(this.buttonSetShip_Click);
             // 
             // groupBox1
             // 
@@ -148,7 +136,6 @@
             this.Controls.Add(this.listBoxLevels);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.SetLiner);
-            this.Controls.Add(this.SetShip);
             this.Controls.Add(this.pictureBoxDock);
             this.Name = "FormDock";
             this.Text = "Док";
@@ -164,7 +151,6 @@
         #endregion
 
         private System.Windows.Forms.PictureBox pictureBoxDock;
-        private System.Windows.Forms.Button SetShip;
         private System.Windows.Forms.Button SetLiner;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.PictureBox pictureBoxTakeShip;
