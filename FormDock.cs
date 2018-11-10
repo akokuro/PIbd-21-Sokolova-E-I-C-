@@ -27,9 +27,12 @@ namespace WindowsFormsCars
         /// </summary>
         private const int countLevel = 5;
 
+        public cancelDelegate c;
         public FormDock()
         {
             InitializeComponent();
+
+
             dock = new MultiLevelDock(countLevel, pictureBoxDock.Width,
 pictureBoxDock.Height);
             //заполнение listBox
@@ -98,7 +101,7 @@ pictureBoxDock.Height);
             Draw();
         }
         /// <summary>
-        /// Обработка нажатия кнопки "Добавить автомобиль"
+        /// Обработка нажатия кнопки "Заказать корабль"
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -109,7 +112,7 @@ pictureBoxDock.Height);
             form.Show();
         }
         /// <summary>
-        /// Метод добавления машины
+        /// Метод добавления корабля
         /// </summary>
         /// <param name="ship"></param>
         private void AddShip(IShip ship)

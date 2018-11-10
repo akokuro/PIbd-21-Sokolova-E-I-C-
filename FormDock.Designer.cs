@@ -37,6 +37,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.listBoxLevels = new System.Windows.Forms.ListBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.labelCancel = new System.Windows.Forms.Label();
+            this.textBoxCancel = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDock)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTakeShip)).BeginInit();
@@ -127,11 +129,28 @@
             this.label2.TabIndex = 5;
             this.label2.Text = "Уровни:";
             // 
+            // labelCancel
+            // 
+            this.labelCancel.AutoSize = true;
+            this.labelCancel.Location = new System.Drawing.Point(745, 185);
+            this.labelCancel.Name = "labelCancel";
+            this.labelCancel.Size = new System.Drawing.Size(0, 13);
+            this.labelCancel.TabIndex = 6;
+            // 
+            // textBoxCancel
+            // 
+            this.textBoxCancel.Location = new System.Drawing.Point(749, 187);
+            this.textBoxCancel.Name = "textBoxCancel";
+            this.textBoxCancel.Size = new System.Drawing.Size(117, 20);
+            this.textBoxCancel.TabIndex = 7;
+            // 
             // FormDock
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(870, 450);
+            this.Controls.Add(this.textBoxCancel);
+            this.Controls.Add(this.labelCancel);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.listBoxLevels);
             this.Controls.Add(this.groupBox1);
@@ -149,8 +168,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.PictureBox pictureBoxDock;
         private System.Windows.Forms.Button SetLiner;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.PictureBox pictureBoxTakeShip;
@@ -159,5 +176,8 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ListBox listBoxLevels;
         private System.Windows.Forms.Label label2;
+        public System.Windows.Forms.Label labelCancel;
+        public System.Windows.Forms.PictureBox pictureBoxDock;
+        public System.Windows.Forms.TextBox textBoxCancel;
     }
 }

@@ -16,13 +16,14 @@ namespace WindowsFormsCars
         /// Переменная-выбранный корабль
         /// </summary>
         IShip ship = null;
-
-        public Color color;
-
         /// <summary>
         /// Событие
         /// </summary>
         private event shipDelegate eventAddShip;
+
+        private event cancelDelegate eventCancel;
+
+        public bool can = false;
 
         public FormShipConfig()
         {

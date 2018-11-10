@@ -45,7 +45,8 @@ namespace WindowsFormsCars
         /// <param name="window">Признак наличия окон</param>
         public Ship_Liner(int maxSpeed, float weight, Color mainColor, Color dopColor, bool
        pipe, bool smokeFromPipe, bool window) :
- base(maxSpeed, weight, mainColor)
+ base(maxSpeed, weight, mainColor)
+
         {
             MaxSpeed = maxSpeed;
             Weight = weight;
