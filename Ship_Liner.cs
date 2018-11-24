@@ -57,6 +57,24 @@ namespace WindowsFormsCars
             Window = window;
         }
         /// <summary>
+        /// Конструктор
+        /// </summary>
+        /// <param name="info">Информация по объекту</param>
+        public Ship_Liner(string info) : base(info)
+        {
+            string[] strs = info.Split(';');
+            if (strs.Length == 7)
+            {
+                MaxSpeed = Convert.ToInt32(strs[0]);
+                Weight = Convert.ToInt32(strs[1]);
+                MainColor = Color.FromName(strs[2]);
+                DopColor = Color.FromName(strs[3]);
+                Pipe = Convert.ToBoolean(strs[4]);
+                SmokeFromPipe = Convert.ToBoolean(strs[5]);
+                Window = Convert.ToBoolean(strs[6]);
+            }
+        }
+        /// <summary>
         /// Изменение направления пермещения
         /// </summary>
         /// <param name="direction">Направление</param>
@@ -144,6 +162,11 @@ namespace WindowsFormsCars
         public void SetDopColor(Color color)
         {
             DopColor = color;
+        }
+        public override string ToString()
+        {
+            return base.ToString() + ";" + DopColor.Name + ";" + Pipe + ";" +
+           SmokeFromPipe + ";" + Window;
         }
     }
 }

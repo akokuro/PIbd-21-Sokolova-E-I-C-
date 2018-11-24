@@ -21,8 +21,6 @@ namespace WindowsFormsCars
         /// </summary>
         private event shipDelegate eventAddShip;
 
-        private event cancelDelegate eventCancel;
-
         public bool can = false;
 
         public FormShipConfig()
