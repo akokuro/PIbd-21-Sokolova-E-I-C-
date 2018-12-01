@@ -38,7 +38,6 @@
             this.listBoxLevels = new System.Windows.Forms.ListBox();
             this.label2 = new System.Windows.Forms.Label();
             this.labelCancel = new System.Windows.Forms.Label();
-            this.textBoxCancel = new System.Windows.Forms.TextBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.сохранитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -144,13 +143,6 @@
             this.labelCancel.Size = new System.Drawing.Size(0, 13);
             this.labelCancel.TabIndex = 6;
             // 
-            // textBoxCancel
-            // 
-            this.textBoxCancel.Location = new System.Drawing.Point(764, 182);
-            this.textBoxCancel.Name = "textBoxCancel";
-            this.textBoxCancel.Size = new System.Drawing.Size(117, 20);
-            this.textBoxCancel.TabIndex = 7;
-            // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -198,7 +190,6 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(885, 506);
-            this.Controls.Add(this.textBoxCancel);
             this.Controls.Add(this.labelCancel);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.listBoxLevels);
@@ -230,7 +221,6 @@
         private System.Windows.Forms.Label label2;
         public System.Windows.Forms.Label labelCancel;
         public System.Windows.Forms.PictureBox pictureBoxDock;
-        public System.Windows.Forms.TextBox textBoxCancel;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem файлToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem сохранитьToolStripMenuItem;
