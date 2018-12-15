@@ -12,7 +12,7 @@ namespace WindowsFormsCars
 {
     public partial class FormShip : Form
     {
-        private Ship ship;
+        private IShip ship;
 
         public FormShip()
         {
@@ -30,12 +30,11 @@ namespace WindowsFormsCars
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void buttonCreate_Click(object sender, EventArgs e)
+        private void buttonCreateShip_Click(object sender, EventArgs e)
         {
             Random rnd = new Random();
-            ship = new Ship(rnd.Next(100, 300), rnd.Next(1000, 2000), Color.Blue,
-           Color.Gray, true, true, true);
-            ship.SetPosition(rnd.Next(10, 100), rnd.Next(10, 100), pictureBoxShip.Width,
+            ship = new Ship(rnd.Next(100, 300), rnd.Next(1000, 2000), Color.Black);
+            ship.SetPosition(rnd.Next(10, 100), rnd.Next(70, 170), pictureBoxShip.Width,
            pictureBoxShip.Height);
             Draw();
         }
@@ -63,6 +62,15 @@ namespace WindowsFormsCars
                     ship.MoveTransport(Direction.Right);
                     break;
             }
+            Draw();
+        }
+
+        private void buttonCreateLiner_Click(object sender, EventArgs e)
+        {
+            Random rnd = new Random();
+            ship = new Ship_Liner(rnd.Next(100, 300), rnd.Next(1000, 2000), Color.Black, Color.Gray, true, true, true);
+            ship.SetPosition(rnd.Next(10, 100), rnd.Next(70, 170), pictureBoxShip.Width,
+           pictureBoxShip.Height);
             Draw();
         }
     }

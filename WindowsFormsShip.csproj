@@ -45,7 +45,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Boat.cs" />
     <Compile Include="Direction.cs" />
+    <Compile Include="IShip.cs" />
     <Compile Include="Ship.cs" />
     <Compile Include="FormShip.cs">
       <SubType>Form</SubType>
@@ -55,6 +57,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Ship_Liner.cs" />
     <EmbeddedResource Include="FormShip.resx">
       <DependentUpon>FormShip.cs</DependentUpon>
     </EmbeddedResource>
