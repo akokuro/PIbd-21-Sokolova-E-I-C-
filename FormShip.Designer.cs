@@ -34,11 +34,13 @@
             this.buttonLeft = new System.Windows.Forms.Button();
             this.buttonRight = new System.Windows.Forms.Button();
             this.buttonDown = new System.Windows.Forms.Button();
+            this.buttonCreateLiner = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxShip)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBoxShip
             // 
+            this.pictureBoxShip.BackColor = System.Drawing.SystemColors.HighlightText;
             this.pictureBoxShip.Location = new System.Drawing.Point(0, 0);
             this.pictureBoxShip.Name = "pictureBoxShip";
             this.pictureBoxShip.Size = new System.Drawing.Size(588, 449);
@@ -52,9 +54,9 @@
             this.buttonCreate.Name = "buttonCreate";
             this.buttonCreate.Size = new System.Drawing.Size(112, 36);
             this.buttonCreate.TabIndex = 1;
-            this.buttonCreate.Text = "Создать корабль-лайнер";
+            this.buttonCreate.Text = "Создать корабль";
             this.buttonCreate.UseVisualStyleBackColor = false;
-            this.buttonCreate.Click += new System.EventHandler(this.buttonCreate_Click);
+            this.buttonCreate.Click += new System.EventHandler(this.buttonCreateShip_Click);
             // 
             // buttonUp
             // 
@@ -106,12 +108,24 @@
             this.buttonDown.UseVisualStyleBackColor = false;
             this.buttonDown.Click += new System.EventHandler(this.buttonMove_Click);
             // 
+            // buttonCreateLiner
+            // 
+            this.buttonCreateLiner.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.buttonCreateLiner.Location = new System.Drawing.Point(588, 42);
+            this.buttonCreateLiner.Name = "buttonCreateLiner";
+            this.buttonCreateLiner.Size = new System.Drawing.Size(112, 36);
+            this.buttonCreateLiner.TabIndex = 6;
+            this.buttonCreateLiner.Text = "Создать корабль-лайнер";
+            this.buttonCreateLiner.UseVisualStyleBackColor = false;
+            this.buttonCreateLiner.Click += new System.EventHandler(this.buttonCreateLiner_Click);
+            // 
             // FormShip
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Menu;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.buttonCreateLiner);
             this.Controls.Add(this.buttonDown);
             this.Controls.Add(this.buttonRight);
             this.Controls.Add(this.buttonLeft);
@@ -133,6 +147,7 @@
         private System.Windows.Forms.Button buttonLeft;
         private System.Windows.Forms.Button buttonRight;
         private System.Windows.Forms.Button buttonDown;
+        private System.Windows.Forms.Button buttonCreateLiner;
     }
 }
 
