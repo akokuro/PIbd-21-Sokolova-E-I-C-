@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace WindowsFormsCars
     /// Параметризованны класс для хранения набора объектов от интерфейса IShip
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    class Dock<T> where T : class, IShip
+    class Dock<T> : IEnumerator<T>, IEnumerable<T>, IComparable<Dock<T>> where T : class, IShip
     {
         /// <summary>
         /// Массив объектов, которые храним
@@ -29,6 +30,23 @@ namespace WindowsFormsCars
         /// Высота окна отрисовки
         /// </summary>
         private int PictureHeight { get; set; }
+        /// <summary>
+        /// Текущий элемент для вывода через IEnumerator 
+        /// (будет обращаться по своему индексу к ключу словаря, по которму будет возвращаться запись)
+        /// </summary>
+        private int _currentIndex;
+
+        /// <summary>
+        /// Получить порядковое место на парковке
+        /// </summary>
+        public int GetKey
+        {
+            get
+            {
+                return _places.Keys.ToList()[_currentIndex];
+            }
+        }
+
         /// <summary>
         /// Размер парковочного места (ширина)
         /// </summary>
@@ -48,6 +66,7 @@ namespace WindowsFormsCars
         {
             _maxCount = sizes;
             _places = new Dictionary<int, T>();
+            _currentIndex = -1;
             PictureWidth = pictureWidth;
             PictureHeight = pictureHeight;
         }
@@ -64,6 +83,10 @@ namespace WindowsFormsCars
             if (p._places.Count == p._maxCount)
             {
                 throw new DockOverflowException();
+            }
+            if (p._places.ContainsValue(ship))
+            {
+                throw new DockAlreadyHaveException();
             }
             for (int i = 0; i < p._maxCount; i++)
             {
@@ -137,6 +160,8 @@ namespace WindowsFormsCars
                 g.DrawLine(pen, i * _placeSizeWidth, 0, i * _placeSizeWidth, 400);
             }
         }
+
+
         /// <summary>
         /// Индексатор
         /// </summary>
@@ -166,5 +191,124 @@ namespace WindowsFormsCars
                 }
             }
         }
+
+        /// <summary>
+        /// Метод интерфейса IEnumerator для получения текущего элемента
+        /// </summary>
+        public T Current
+        {
+            get
+            {
+                return _places[_places.Keys.ToList()[_currentIndex]];
+            }
+        }
+
+        /// <summary>
+        /// Метод интерфейса IEnumerator для получения текущего элемента
+        /// </summary>
+        object IEnumerator.Current
+        {
+            get
+            {
+                return Current;
+            }
+        }
+
+        /// <summary>
+        /// Метод интерфейса IEnumerator, вызываемый при удалении объекта
+        /// </summary>
+        public void Dispose()
+        {
+            _places.Clear();
+        }
+
+        /// <summary>
+        /// Метод интерфейса IEnumerator для перехода к следующему элементу или началу коллекции
+        /// </summary>
+        /// <returns></returns>
+        public bool MoveNext()
+        {
+            if (_currentIndex + 1 >= _places.Count)
+            {
+                Reset();
+                return false;
+            }
+            _currentIndex++;
+            return true;
+        }
+
+        /// <summary>
+        /// Метод интерфейса IEnumerator для сброса и возврата к началу коллекции
+        /// </summary>
+        public void Reset()
+        {
+            _currentIndex = -1;
+        }
+
+        /// <summary>
+        /// Метод интерфейса IEnumerable
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerator<T> GetEnumerator()
+        {
+            return this;
+        }
+
+        /// <summary>
+        /// Метод интерфейса IEnumerable
+        /// </summary>
+        /// <returns></returns>
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        /// <summary>
+        /// Метод интерфейса IComparable
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public int CompareTo(Dock<T> other)
+        {
+            if (_places.Count > other._places.Count)
+            {
+                return -1;
+            }
+            else if (_places.Count < other._places.Count)
+            {
+                return 1;
+            }
+            else if (_places.Count > 0)
+            {
+                var thisKeys = _places.Keys.ToList();
+                var otherKeys = other._places.Keys.ToList();
+                for (int i = 0; i < _places.Count; ++i)
+                {
+                    if (_places[thisKeys[i]] is Ship && other._places[thisKeys[i]] is
+                   Ship_Liner)
+                    {
+                        return 1;
+                    }
+                    if (_places[thisKeys[i]] is Ship_Liner && other._places[thisKeys[i]] is
+                    Ship)
+                    {
+                        return -1;
+                    }
+                    if (_places[thisKeys[i]] is Ship && other._places[thisKeys[i]] is Ship)
+                    {
+                        return (_places[thisKeys[i]] is
+                       Ship).CompareTo(other._places[thisKeys[i]] is Ship);
+                    }
+                    if (_places[thisKeys[i]] is Ship_Liner && other._places[thisKeys[i]] is
+                    Ship_Liner)
+                    {
+                        return (_places[thisKeys[i]] is
+                       Ship_Liner).CompareTo(other._places[thisKeys[i]] is Ship_Liner);
+                    }
+                }
+            }
+            return 0;
+        }
+
     }
 }

@@ -56,6 +56,7 @@
     <Compile Include="Boat.cs" />
     <Compile Include="Direction.cs" />
     <Compile Include="Dock.cs" />
+    <Compile Include="DockAlreadyHaveException.cs" />
     <Compile Include="DockNotFoundException.cs" />
     <Compile Include="DockOccupiedPlaceException .cs" />
     <Compile Include="DockOverflowException.cs" />
