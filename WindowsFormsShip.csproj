@@ -55,6 +55,7 @@
       <DependentUpon>FormDock.cs</DependentUpon>
     </Compile>
     <Compile Include="IShip.cs" />
+    <Compile Include="MultiLevelDock.cs" />
     <Compile Include="Ship.cs" />
     <Compile Include="FormShip.cs">
       <SubType>Form</SubType>
