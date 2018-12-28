@@ -18,13 +18,21 @@ namespace WindowsFormsCars
         MultiLevelDock dock;
 
         /// <summary>
+        /// Форма для добавления
+        /// </summary>
+        FormShipConfig form;
+
+        /// <summary>
         /// Количество уровней-парковок
         /// </summary>
         private const int countLevel = 5;
 
+        public cancelDelegate c;
         public FormDock()
         {
             InitializeComponent();
+
+
             dock = new MultiLevelDock(countLevel, pictureBoxDock.Width,
 pictureBoxDock.Height);
             //заполнение listBox
@@ -48,57 +56,6 @@ pictureBoxDock.Height);
                 Graphics gr = Graphics.FromImage(bmp);
                 dock[listBoxLevels.SelectedIndex].Draw(gr);
                 pictureBoxDock.Image = bmp;
-            }
-        }
-        /// <summary>
-        /// Обработка нажатия кнопки "Швартовать корабль"
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void buttonSetShip_Click(object sender, EventArgs e)
-        {
-            if (listBoxLevels.SelectedIndex > -1)
-            {
-                ColorDialog dialog = new ColorDialog();
-                if (dialog.ShowDialog() == DialogResult.OK)
-                {
-                    var ship = new Ship(100, 1000, dialog.Color);
-                    int place = dock[listBoxLevels.SelectedIndex] + ship;
-                    if (place == -1)
-                    {
-                        MessageBox.Show("Нет свободных мест", "Ошибка",
-                       MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    Draw();
-                }
-            }
-        }
-        /// <summary>
-        /// Обработка нажатия кнопки "Швартовать лайнер"
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void buttonSetLiner_Click(object sender, EventArgs e)
-        {
-            if (listBoxLevels.SelectedIndex > -1)
-            {
-                ColorDialog dialog = new ColorDialog();
-                if (dialog.ShowDialog() == DialogResult.OK)
-                {
-                    ColorDialog dialogDop = new ColorDialog();
-                    if (dialogDop.ShowDialog() == DialogResult.OK)
-                    {
-                        var car = new Ship_Liner(100, 1000, dialog.Color, dialogDop.Color,
-                       true, true, true);
-                        int place = dock[listBoxLevels.SelectedIndex] + car;
-                        if (place == -1)
-                        {
-                            MessageBox.Show("Нет свободных мест", "Ошибка",
-                           MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                        Draw();
-                    }
-                }
             }
         }
         /// <summary>
@@ -142,6 +99,36 @@ pictureBoxDock.Height);
         private void listBoxLevels_SelectedIndexChanged(object sender, EventArgs e)
         {
             Draw();
-        }
+        }
+        /// <summary>
+        /// Обработка нажатия кнопки "Заказать корабль"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonSetShip_Click(object sender, EventArgs e)
+        {
+            form = new FormShipConfig();
+            form.AddEvent(AddShip);
+            form.Show();
+        }
+        /// <summary>
+        /// Метод добавления корабля
+        /// </summary>
+        /// <param name="ship"></param>
+        private void AddShip(IShip ship)
+        {
+            if (ship != null && listBoxLevels.SelectedIndex > -1)
+            {
+                int place = dock[listBoxLevels.SelectedIndex] + ship;
+                if (place > -1)
+                {
+                    Draw();
+                }
+                else
+                {
+                    MessageBox.Show("Корабль не удалось пришвартовать");
+                }
+            }
+        }
     }
 }

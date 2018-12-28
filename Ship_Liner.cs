@@ -45,7 +45,8 @@ namespace WindowsFormsCars
         /// <param name="window">Признак наличия окон</param>
         public Ship_Liner(int maxSpeed, float weight, Color mainColor, Color dopColor, bool
        pipe, bool smokeFromPipe, bool window) :
- base(maxSpeed, weight, mainColor)
+ base(maxSpeed, weight, mainColor)
+
         {
             MaxSpeed = maxSpeed;
             Weight = weight;
@@ -137,6 +138,12 @@ namespace WindowsFormsCars
                 g.FillEllipse(spoiler, _startPosX + 5, _startPosY - 23, 7, 7);
             }
         }
-
+        /// Смена дополнительного цвета
+        /// </summary>
+        /// <param name="color"></param>
+        public void SetDopColor(Color color)
+        {
+            DopColor = color;
+        }
     }
 }
