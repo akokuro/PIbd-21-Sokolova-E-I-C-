@@ -71,36 +71,21 @@ namespace WindowsFormsCars
             }
             using (FileStream fs = new FileStream(filename, FileMode.Create))
             {
-                using (BufferedStream bs = new BufferedStream(fs))
+                WriteToFile("CountLeveles:" + parkingStages.Count + Environment.NewLine, fs);
+                foreach (var level in parkingStages)
                 {
-                    //Записываем количество уровней
-                    WriteToFile("CountLeveles:" + parkingStages.Count +
-                   Environment.NewLine, fs);
-                    foreach (var level in parkingStages)
+                    WriteToFile("Level" + Environment.NewLine, fs);
+                    foreach (IShip ship in level)
                     {
-                        //Начинаем уровень
-                        WriteToFile("Level" + Environment.NewLine, fs);
-                        for (int i = 0; i < countPlaces; i++)
+                        if (ship.GetType().Name == "Ship")
                         {
-                            try
-                            {
-                                var ship = level[i];
-                                if (ship == null)
-                                    continue;
-                                //Записываем тип корабля
-                                if (ship.GetType().Name == "Ship")
-                                {
-                                    WriteToFile(i + ":Ship:", fs);
-                                }
-                                if (ship.GetType().Name == "Ship_Liner")
-                                {
-                                    WriteToFile(i + ":Ship_Liner:", fs);
-                                }
-                                //Записываемые параметры
-                                WriteToFile(ship + Environment.NewLine, fs);
-                            }
-                            finally { }
+                            WriteToFile(level.GetKey + ":Ship:", fs);
                         }
+                        if (ship.GetType().Name == "Ship_Liner")
+                        {
+                            WriteToFile(level.GetKey + ":Ship_Liner:", fs);
+                        }
+                        WriteToFile(ship + Environment.NewLine, fs);
                     }
                 }
             }
@@ -157,6 +142,7 @@ namespace WindowsFormsCars
                 throw new Exception("Неверный формат файла");
             }
             int counter = -1;
+            int counterShip = 0;
             IShip ship = null;
             for (int i = 1; i < strs.Length; ++i)
             {
@@ -165,6 +151,7 @@ namespace WindowsFormsCars
                 {
                     //начинаем новый уровень
                     counter++;
+                    counterShip = 0;
                     parkingStages.Add(new Dock<IShip>(countPlaces, pictureWidth,
                     pictureHeight));
                     continue;
@@ -181,8 +168,15 @@ namespace WindowsFormsCars
                 {
                     ship = new Ship_Liner(strs[i].Split(':')[2]);
                 }
-                parkingStages[counter][Convert.ToInt32(strs[i].Split(':')[0])] = ship;
+                parkingStages[counter][counterShip++] = ship;
             }
+        }
+        /// <summary>
+        /// Сортировка уровней
+        /// </summary>
+        public void Sort()
+        {
+            parkingStages.Sort();
         }
     }
 }

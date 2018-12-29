@@ -208,5 +208,17 @@ pictureBoxDock.Height);
                 Draw();
             }
         }
+
+        /// <summary>
+        /// Обработка нажатия кнопки "Сортировка"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button_Sort_Click(object sender, EventArgs e)
+        {
+            dock.Sort();
+            Draw();
+            logger.Info("Сортировка уровней");
+        }
     }
 }

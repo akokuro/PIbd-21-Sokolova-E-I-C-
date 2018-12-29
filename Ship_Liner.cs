@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace WindowsFormsCars
 {
-    class Ship_Liner : Ship
+    class Ship_Liner : Ship, IComparable<Ship_Liner>, IEquatable<Ship_Liner>
     {
         /// <summary>
         /// Ширина отрисовки коробля
@@ -167,6 +167,103 @@ namespace WindowsFormsCars
         {
             return base.ToString() + ";" + DopColor.Name + ";" + Pipe + ";" +
            SmokeFromPipe + ";" + Window;
+        }
+
+        /// <summary>
+        /// Метод интерфейса IComparable для класса Ship_Liner
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public int CompareTo(Ship_Liner other)
+        {
+            var res = (this is Ship).CompareTo(other is Ship);
+            if (res != 0)
+            {
+                return res;
+            }
+            if (DopColor != other.DopColor)
+            {
+                DopColor.Name.CompareTo(other.DopColor.Name);
+            }
+            if (Window != other.Window)
+            {
+                return Window.CompareTo(other.Window);
+            }
+            if (Pipe != other.Pipe)
+            {
+                return Pipe.CompareTo(other.Pipe);
+            }
+            if (SmokeFromPipe != other.SmokeFromPipe)
+            {
+                return SmokeFromPipe.CompareTo(other.SmokeFromPipe);
+            }
+            return 0;
+        }
+
+        /// <summary>
+        /// Метод интерфейса IEquatable для класса Ship_Liner
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public bool Equals(Ship_Liner other)
+        {
+            var res = (this as Ship).Equals(other as Ship);
+            if (!res)
+            {
+                return res;
+            }
+            if (GetType().Name != other.GetType().Name)
+            {
+                return false;
+            }
+            if (DopColor != other.DopColor)
+            {
+                return false;
+            }
+            if (Window != other.Window)
+            {
+                return false;
+            }
+            if (Pipe != other.Pipe)
+            {
+                return false;
+            }
+            if (SmokeFromPipe != other.SmokeFromPipe)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Перегрузка метода от object
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public override bool Equals(Object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+            Ship_Liner shipObj = obj as Ship_Liner;
+            if (shipObj == null)
+            {
+                return false;
+            }
+            else
+            {
+                return Equals(shipObj);
+            }
+        }
+
+        /// <summary>
+        /// Перегрузка метода от object
+        /// </summary>
+        /// <returns></returns>
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
     }
 }

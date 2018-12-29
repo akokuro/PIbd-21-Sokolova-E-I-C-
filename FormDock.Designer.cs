@@ -44,7 +44,7 @@
             this.загрузитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
-
+            this.button_Sort = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDock)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTakeShip)).BeginInit();
@@ -77,7 +77,7 @@
             this.groupBox1.Controls.Add(this.TakeShip);
             this.groupBox1.Controls.Add(this.maskedTextBox);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(753, 211);
+            this.groupBox1.Location = new System.Drawing.Point(756, 260);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(129, 234);
             this.groupBox1.TabIndex = 3;
@@ -185,12 +185,25 @@
             // 
             this.openFileDialog.FileName = "openFileDialog1";
             this.openFileDialog.Filter = "txt file | *.txt";
-            //
+          
+            // 
+            // button_Sort
+            // 
+            this.button_Sort.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.button_Sort.Location = new System.Drawing.Point(755, 170);
+            this.button_Sort.Name = "button_Sort";
+            this.button_Sort.Size = new System.Drawing.Size(117, 43);
+            this.button_Sort.TabIndex = 9;
+            this.button_Sort.Text = "Сортировать";
+            this.button_Sort.UseVisualStyleBackColor = false;
+            this.button_Sort.Click += new System.EventHandler(this.button_Sort_Click);
+
             // FormDock
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(885, 506);
+            this.Controls.Add(this.button_Sort);
             this.Controls.Add(this.labelCancel);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.listBoxLevels);
@@ -228,5 +241,6 @@
         private System.Windows.Forms.ToolStripMenuItem загрузитьToolStripMenuItem;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
+        private System.Windows.Forms.Button button_Sort;
     }
 }
