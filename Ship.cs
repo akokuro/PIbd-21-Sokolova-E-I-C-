@@ -33,6 +33,20 @@ namespace WindowsFormsCars
             MainColor = mainColor;
         }
         /// <summary>
+        /// Конструктор
+        /// </summary>
+        /// <param name="info">Информация по объекту</param>
+        public Ship(string info)
+        {
+            string[] strs = info.Split(';');
+            if (strs.Length == 3)
+            {
+                MaxSpeed = Convert.ToInt32(strs[0]);
+                Weight = Convert.ToInt32(strs[1]);
+                MainColor = Color.FromName(strs[2]);
+            }
+        }
+        /// <summary>
         /// Изменение направления пермещения
         /// </summary>
         /// <param name="direction">Направление</param>
@@ -87,6 +101,9 @@ namespace WindowsFormsCars
             g.DrawLine(new Pen(Color.Red), _startPosX + 5, _startPosY - 13, _startPosX + 85, _startPosY - 13);
             g.DrawRectangle(pen, _startPosX + 10, _startPosY - 35, 70, 10);
         }
-
+        public override string ToString()
+        {
+            return MaxSpeed + ";" + Weight + ";" + MainColor.Name;
+        }
     }
 }
