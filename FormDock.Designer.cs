@@ -185,6 +185,7 @@
             // 
             this.openFileDialog.FileName = "openFileDialog1";
             this.openFileDialog.Filter = "txt file | *.txt";
+          
             // 
             // button_Sort
             // 
@@ -196,7 +197,7 @@
             this.button_Sort.Text = "Сортировать";
             this.button_Sort.UseVisualStyleBackColor = false;
             this.button_Sort.Click += new System.EventHandler(this.button_Sort_Click);
-            // 
+
             // FormDock
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
