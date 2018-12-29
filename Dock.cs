@@ -63,7 +63,7 @@ namespace WindowsFormsCars
         {
             if (p._places.Count == p._maxCount)
             {
-                return -1;
+                throw new DockOverflowException();
             }
             for (int i = 0; i < p._maxCount; i++)
             {
@@ -94,7 +94,7 @@ namespace WindowsFormsCars
                 p._places.Remove(index);
                 return car;
             }
-            return null;
+            throw new DockNotFoundException(index);
         }
         /// <summary>
         /// Метод проверки заполнености парковочного места (ячейки массива)
@@ -159,6 +159,10 @@ namespace WindowsFormsCars
                     _places.Add(ind, value);
                     _places[ind].SetPosition(5 + ind / 5 * _placeSizeWidth + 5, ind % 5 *
                     _placeSizeHeight + 57, PictureWidth, PictureHeight);
+                }
+                else
+                {
+                    throw new DockOccupiedPlaceException(ind);
                 }
             }
         }

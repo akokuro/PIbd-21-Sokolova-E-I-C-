@@ -38,7 +38,6 @@
             this.listBoxLevels = new System.Windows.Forms.ListBox();
             this.label2 = new System.Windows.Forms.Label();
             this.labelCancel = new System.Windows.Forms.Label();
-
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.сохранитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -26,12 +27,17 @@ namespace WindowsFormsCars
         /// Количество уровней-парковок
         /// </summary>
         private const int countLevel = 5;
-        
+
+        /// <summary>
+        /// Логгер
+        /// </summary>
+        private Logger logger;
+
         public FormDock()
         {
             InitializeComponent();
 
-
+            logger = LogManager.GetCurrentClassLogger();
             dock = new MultiLevelDock(countLevel, pictureBoxDock.Width,
 pictureBoxDock.Height);
             //заполнение listBox
@@ -68,10 +74,11 @@ pictureBoxDock.Height);
             {
                 if (maskedTextBox.Text != "")
                 {
-                    var ship = dock[listBoxLevels.SelectedIndex] -
-                   Convert.ToInt32(maskedTextBox.Text);
-                    if (ship != null)
+                    try
                     {
+                        var ship = dock[listBoxLevels.SelectedIndex] -
+                   Convert.ToInt32(maskedTextBox.Text);
+
                         Bitmap bmp = new Bitmap(pictureBoxTakeShip.Width,
                        pictureBoxTakeShip.Height);
                         Graphics gr = Graphics.FromImage(bmp);
@@ -79,14 +86,23 @@ pictureBoxDock.Height);
                        pictureBoxTakeShip.Height);
                         ship.DrawShip(gr);
                         pictureBoxTakeShip.Image = bmp;
+
+
+                        Draw();
                     }
-                    else
+                    catch (DockNotFoundException ex)
                     {
+                        MessageBox.Show(ex.Message, "Не найдено", MessageBoxButtons.OK,
+                       MessageBoxIcon.Error);
                         Bitmap bmp = new Bitmap(pictureBoxTakeShip.Width,
-                       pictureBoxTakeShip.Height);
+                        pictureBoxTakeShip.Height);
                         pictureBoxTakeShip.Image = bmp;
                     }
-                    Draw();
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Неизвестная ошибка",
+                       MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
         }
@@ -118,14 +134,23 @@ pictureBoxDock.Height);
         {
             if (ship != null && listBoxLevels.SelectedIndex > -1)
             {
-                int place = dock[listBoxLevels.SelectedIndex] + ship;
-                if (place > -1)
+                try
                 {
+                    int place = dock[listBoxLevels.SelectedIndex] + ship;
+                    logger.Info("Добавлен корабль " + ship.ToString() + " на место " + place);
+
                     Draw();
+
                 }
-                else
+                catch (DockOverflowException ex)
                 {
-                    MessageBox.Show("Корабль не удалось пришвартовать");
+                    MessageBox.Show(ex.Message, "Переполнение", MessageBoxButtons.OK,
+                   MessageBoxIcon.Error);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Неизвестная ошибка",
+                   MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -136,20 +161,22 @@ pictureBoxDock.Height);
         /// <param name="e"></param>
         private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                if (dock.SaveData(saveFileDialog.FileName))
+                try
                 {
+                    dock.SaveData(saveFileDialog.FileName);
                     MessageBox.Show("Сохранение прошло успешно", "Результат",
-                   MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    logger.Info("Сохранено в файл " + saveFileDialog.FileName);
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageBox.Show("Не сохранилось", "Результат", MessageBoxButtons.OK,
-                   MessageBoxIcon.Error);
+                    
+                    MessageBox.Show(ex.Message + ex.StackTrace, "Неизвестная ошибка при сохранении",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-
         }
 
         /// <summary>
@@ -159,21 +186,27 @@ pictureBoxDock.Height);
         /// <param name="e"></param>
         private void загрузитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                if (dock.LoadData(openFileDialog.FileName))
+                try
                 {
+                    dock.LoadData(openFileDialog.FileName);
                     MessageBox.Show("Загрузили", "Результат", MessageBoxButtons.OK,
-                   MessageBoxIcon.Information);
+                    MessageBoxIcon.Information);
+                    logger.Info("Загружено из файла " + openFileDialog.FileName);
                 }
-                else
+                catch (DockOccupiedPlaceException ex)
                 {
-                    MessageBox.Show("Не загрузили", "Результат", MessageBoxButtons.OK,
+                    MessageBox.Show(ex.Message, "Занятое место", MessageBoxButtons.OK,
                    MessageBoxIcon.Error);
                 }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Неизвестная ошибка при загрузке",
+                   MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
                 Draw();
-            }
-
+            }
         }
     }
 }
